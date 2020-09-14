@@ -1,23 +1,24 @@
-from flask  import Flask,jsonify
+from flask  import Flask,jsonify,request
 import pandas
+
 data=pandas.read_csv('auth.csv')
 uname=list(data['Username'])
 upass=list(data['Password'])
 uteams=list(data['Teamname'])
 
 app=Flask(__name__)
-@app.route('/<par>',methods=['GET'])
-def sender(par):
+@app.route('/login',methods=['POST'])
+def sender():
     ret={'status':'False','Team':'False'}
-    cred=par.split('&')
-    print(cred[0].split('=')[1])
-    if cred[0].split('=')[1] in uname:
-        ind=uname.index(cred[0].split('=')[1])
-        if upass[ind]==cred[1].split('=')[1]:
-            ret['status']='True'
-            ret['Team']=uteams[ind]
-    print(par)
-    return jsonify(ret)
+    datas=request.form
+    use=datas['username']
+    passer=datas['password']
+    if use in uname:
+        i=uname.index(use)
+        if upass[i]==passer:
+            ret['status']=True
+            ret['Team']=uteams[i]
+    return ret
 
     
 if __name__ == '__main__':
