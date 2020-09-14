@@ -16,6 +16,7 @@ def sender(par):
         if upass[ind]==cred[1].split('=')[1]:
             ret['status']='True'
             ret['Team']=uteams[ind]
+    print(par)
     return jsonify(ret)
 
     
