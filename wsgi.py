@@ -13,11 +13,13 @@ def sender():
     datas=request.form
     use=datas['username']
     passer=datas['password']
+    print(use,passer)
     if use in uname:
         i=uname.index(use)
         if upass[i]==passer:
             ret['status']=True
             ret['Team']=uteams[i]
+    
     return ret
 
     
