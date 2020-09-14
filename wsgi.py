@@ -9,6 +9,7 @@ uteams=list(data['Teamname'])
 app=Flask(__name__)
 @app.route('/login',methods=['POST'])
 def sender():
+    print(request)
     ret={'status':'False','Team':'False'}
     datas=request.form
     use=datas['username']
