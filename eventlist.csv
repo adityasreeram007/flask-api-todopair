@@ -1,0 +1,5 @@
+team,event_name,description,time,by
+WeWork,login UI,Complete react UI for login,"9/18/2020,3:12:20",Kavya
+WeWork,login API,Complete flask api for login,"9/19/2020,7:16:20",Kavya
+WeWork,List Box UI,Complete react UI for ListBox,"9/16/2020,14:12:20",Aditya
+WeWork,List Box API,Complete flask API for ListBox,"9/17/2020,13:15:20",Aditya
