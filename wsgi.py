@@ -1,17 +1,31 @@
 from flask  import Flask,jsonify,request
 import pandas
 from flask_cors import CORS
-
-data=pandas.read_csv('auth.csv')
-uname=list(data['Username'])
-upass=list(data['Password'])
-uteams=list(data['Teamname'])
-eventdata=pandas.read_csv('eventlist.csv')
-eteams=list(eventdata['team'])
-ename=list(eventdata['event_name'])
-edesc=list(eventdata['description'])
-etime=list(eventdata['time'])
-eby=list(eventdata['by'])
+import datetime
+import csv
+data=None
+uname=None
+upass=None
+uteams=None
+eventdata=None
+eteams=None
+ename=None
+edesc=None
+etime=None
+eby=None
+def readdata():
+    global data,uname,upass,uteams,eventdata,eteams,ename,edesc,etime,eby
+    data=pandas.read_csv('auth.csv')
+    uname=list(data['Username'])
+    upass=list(data['Password'])
+    uteams=list(data['Teamname'])
+    eventdata=pandas.read_csv('eventlist.csv')
+    eteams=list(eventdata['team'])
+    ename=list(eventdata['event_name'])
+    edesc=list(eventdata['description'])
+    etime=list(eventdata['time'])
+    eby=list(eventdata['by'])
+readdata()
 app=Flask(__name__)
 CORS(app)
 @app.route('/login',methods=['POST'])
@@ -32,6 +46,7 @@ def sender():
     return ret
 @app.route('/getdata',methods=['POST'])
 def senddata():
+    
     retdata={'data':None}
     datas=request.get_json()
     print(datas)
@@ -47,10 +62,20 @@ def senddata():
             retarr.append(arr)
     retdata['data']=retarr        
     return jsonify(retdata)
+@app.route('/putdata',methods=['POST'])
+def putdata():
+    readdata()
+    resdata={'status':False}
+    datas=request.get_json()
+    temp=str(datetime.datetime.now())
+    temp1=temp.split()
+    now=str(temp1[0]+","+temp1[1][0:8])
     
-    
-    
-    
+    with open('eventlist.csv', 'a') as file:
+        writer = csv.writer(file)
+        writer.writerow([datas['team'], datas['title'], datas['desc'],now,datas['user']])
+        resdata['status']=True
+    return resdata    
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5002)
