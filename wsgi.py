@@ -25,6 +25,7 @@ def readdata():
     edesc=list(eventdata['description'])
     etime=list(eventdata['time'])
     eby=list(eventdata['by'])
+    return True
 readdata()
 app=Flask(__name__)
 CORS(app)
@@ -60,22 +61,24 @@ def senddata():
             arr.append(etime[i])
             arr.append(eby[i])
             retarr.append(arr)
-    retdata['data']=retarr        
-    return jsonify(retdata)
+    retdata['data']=retarr
+    print(retdata)        
+    return retdata
 @app.route('/putdata',methods=['POST'])
 def putdata():
-    readdata()
+    
     resdata={'status':False}
     datas=request.get_json()
     temp=str(datetime.datetime.now())
     temp1=temp.split()
-    now=str(temp1[0]+","+temp1[1][0:8])
+    now=str(temp1[0][::-1]+","+temp1[1][0:8])
     
-    with open('eventlist.csv', 'a') as file:
+    with open('eventlist.csv', 'a+',newline='') as file:
         writer = csv.writer(file)
         writer.writerow([datas['team'], datas['title'], datas['desc'],now,datas['user']])
         resdata['status']=True
+    readdata()
     return resdata    
     
 if __name__ == '__main__':
-    app.run(debug=True,port=5002)
+    app.run(debug=True,port=5000)
