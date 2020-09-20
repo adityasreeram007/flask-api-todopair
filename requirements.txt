@@ -2,3 +2,4 @@ gunicorn==20.0.4
 Flask==1.1.2
 pandas==1.1.2
 flask_cors==3.0.9
+csv==2.3
