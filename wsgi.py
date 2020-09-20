@@ -25,7 +25,7 @@ def readdata():
     edesc=list(eventdata['description'])
     etime=list(eventdata['time'])
     eby=list(eventdata['by'])
-    return True
+    
 readdata()
 app=Flask(__name__)
 CORS(app)
@@ -62,7 +62,7 @@ def senddata():
             arr.append(eby[i])
             retarr.append(arr)
     retdata['data']=retarr
-    print(retdata)        
+    # print(retdata)        
     return retdata
 @app.route('/putdata',methods=['POST'])
 def putdata():
