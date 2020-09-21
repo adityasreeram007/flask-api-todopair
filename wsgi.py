@@ -77,6 +77,7 @@ def putdata():
         writer = csv.writer(file)
         writer.writerow([datas['team'], datas['title'], datas['desc'],now,datas['user']])
         resdata['status']=True
+        
     readdata()
     return resdata    
     
