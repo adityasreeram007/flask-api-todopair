@@ -15,7 +15,7 @@ etime=None
 eby=None
 def readdata():
     global data,uname,upass,uteams,eventdata,eteams,ename,edesc,etime,eby
-    data=pandas.read_csv('auth.csv','r')
+    data=pandas.read_csv('auth.csv')
     uname=list(data['Username'])
     upass=list(data['Password'])
     uteams=list(data['Teamname'])
