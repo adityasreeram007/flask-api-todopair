@@ -73,7 +73,7 @@ def putdata():
     temp1=temp.split()
     now=str(temp1[0][::-1]+","+temp1[1][0:8])
     
-    with open('eventlist.csv', 'a',newline='') as file:
+    with open('eventlist.csv', 'a+',newline='') as file:
         writer = csv.writer(file)
         writer.writerow([datas['team'], datas['title'], datas['desc'],now,datas['user']])
         resdata['status']=True
