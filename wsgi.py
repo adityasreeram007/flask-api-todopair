@@ -15,7 +15,7 @@ etime=None
 eby=None
 def readdata():
     global data,uname,upass,uteams,eventdata,eteams,ename,edesc,etime,eby
-    data=pandas.read_csv('auth.csv')
+    data=pandas.read_csv('auth.csv','r')
     uname=list(data['Username'])
     upass=list(data['Password'])
     uteams=list(data['Teamname'])
@@ -73,7 +73,7 @@ def putdata():
     temp1=temp.split()
     now=str(temp1[0][::-1]+","+temp1[1][0:8])
     
-    with open('eventlist.csv', 'a',newline='') as file:
+    with open('eventlist.csv', 'w',newline='') as file:
         writer = csv.writer(file)
         writer.writerow([datas['team'], datas['title'], datas['desc'],now,datas['user']])
         resdata['status']=True
