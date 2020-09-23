@@ -4,4 +4,3 @@ pandas==1.1.2
 flask_cors==3.0.9
 python-csv==0.0.13
 datetime==4.3
-db-sqlite==0.0.1
