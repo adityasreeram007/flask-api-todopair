@@ -67,7 +67,18 @@ def putdata():
     cur=conn.execute("insert into events values (?,?,?,?,?)",values)
     print(cur)
     conn.commit()
-    return resdata    
     
+    return resdata    
+@app.route("/delete",methods=["POST"])
+def delete():
+    datas=request.get_json()
+    param=(datas['time'],)
+    print(param)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(BASE_DIR, "event_db.db")
+    conn=sqlite3.connect(db_path)
+    conn.execute("delete from  events where time=?",param)
+    conn.commit()
+    return {'status':True}
 if __name__ == '__main__':
     app.run(debug=True)
